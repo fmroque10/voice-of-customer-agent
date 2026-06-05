@@ -120,10 +120,10 @@ def customer_agent(goal, df):
     trend_tool
 )
 
-st.write("🔌 MCP Tool: Complaint Retrieval")
-st.write("🔌 MCP Tool: Complaint Statistics")
-st.write("🔌 MCP Tool: Severity Analysis")
-st.write("🔌 MCP Tool: Trend Analysis")
+     st.write("🔌 MCP Tool: Complaint Retrieval")
+     st.write("🔌 MCP Tool: Complaint Statistics")
+     st.write("🔌 MCP Tool: Severity Analysis")
+     st.write("🔌 MCP Tool: Trend Analysis")
     
 
     prompt = f"""
