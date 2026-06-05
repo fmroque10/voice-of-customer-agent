@@ -5,7 +5,6 @@ from mcp_tools import (
     mcp_complaint_tool
 )
 
-
 import streamlit as st
 import pandas as pd
 from collections import Counter
@@ -99,37 +98,41 @@ def trend_tool(df):
 def customer_agent(goal, df):
 
     complaints = mcp_complaint_tool(
-    df,
-    get_complaints
-)
+        df,
+        get_complaints
+    )
 
     total = mcp_count_tool(
-    df,
-    count_complaints
-)
+        df,
+        count_complaints
+    )
 
     common_words = top_words(df)
 
     severity = mcp_severity_tool(
-    df,
-    severity_tool
-)
-
-    trends = mcp_trend_tool(
-         df,
-         trend_tool
+        df,
+        severity_tool
     )
 
-        st.write("🔌 MCP Tool: Complaint Retrieval")
-        st.write("🔌 MCP Tool: Complaint Statistics")
-        st.write("🔌 MCP Tool: Severity Analysis")
-        st.write("🔌 MCP Tool: Trend Analysis")
+    trends = mcp_trend_tool(
+        df,
+        trend_tool
+    )
 
-        prompt = f"""
+    prompt = f"""
 You are an autonomous Customer Intelligence Agent.
 
 Your job is to gather context from tools
 and execute a business analysis.
+
+The agent accesses analytical tools through
+an MCP tool layer.
+
+MCP TOOLS INVOKED:
+- Complaint Retrieval Tool
+- Complaint Statistics Tool
+- Severity Analysis Tool
+- Trend Analysis Tool
 
 TOOL OUTPUTS
 
@@ -173,11 +176,21 @@ Generate:
 # Streamlit UI
 # ------------------------
 
-st.title("Voice of Customer Agent")
+st.title("CustomerPulse AI")
 
-st.write(
-    "Upload a CSV containing a column named 'complaint'."
-)
+st.markdown("""
+### Autonomous Voice-of-Customer Intelligence
+
+Upload customer complaints and let the agent:
+
+✅ Detect emerging issues
+
+✅ Assess severity
+
+✅ Identify business risks
+
+✅ Generate executive action plans
+""")
 
 uploaded_file = st.file_uploader(
     "Upload CSV",
@@ -194,6 +207,10 @@ if uploaded_file:
 
     if st.button("Analyze Complaints"):
 
+        st.info(
+            "🔌 MCP Layer Active: Complaint Retrieval, Statistics, Severity Analysis, Trend Analysis"
+        )
+
         with st.spinner("Agent is analyzing complaints..."):
 
             result = customer_agent(
@@ -204,6 +221,6 @@ executive recommendations.
                 df
             )
 
-        st.subheader("Agent Report")
+        st.subheader("Executive Intelligence Report")
 
         st.write(result)
