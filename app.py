@@ -1,3 +1,11 @@
+from mcp_tools import (
+    mcp_severity_tool,
+    mcp_trend_tool,
+    mcp_count_tool,
+    mcp_complaint_tool
+)
+
+
 import streamlit as st
 import pandas as pd
 from collections import Counter
@@ -90,15 +98,33 @@ def trend_tool(df):
 
 def customer_agent(goal, df):
 
-    complaints = get_complaints(df)
+    complaints = mcp_complaint_tool(
+    df,
+    get_complaints
+)
 
-    total = count_complaints(df)
+    total = mcp_count_tool(
+    df,
+    count_complaints
+)
 
     common_words = top_words(df)
 
-    severity = severity_tool(df)
+    severity = mcp_severity_tool(
+    df,
+    severity_tool
+)
 
-    trends = trend_tool(df)
+    trends = mcp_trend_tool(
+    df,
+    trend_tool
+)
+
+st.write("🔌 MCP Tool: Complaint Retrieval")
+st.write("🔌 MCP Tool: Complaint Statistics")
+st.write("🔌 MCP Tool: Severity Analysis")
+st.write("🔌 MCP Tool: Trend Analysis")
+    
 
     prompt = f"""
 You are an autonomous Customer Intelligence Agent.
